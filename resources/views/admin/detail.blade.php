@@ -234,7 +234,7 @@
 
                         @if($permohonan->ktp)
 
-                            <a href="{{ asset($permohonan->ktp) }}"
+                            <a href="{{ $permohonan->ktp }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -242,8 +242,8 @@
 
                             </a>
 
-                            <a href="{{ asset($permohonan->ktp) }}"
-                               download
+                            <a href="{{ $permohonan->ktp }}"
+                               target="_blank"
                                class="btn btn-download">
 
                                 Download
@@ -270,7 +270,7 @@
 
                         @if($permohonan->kk)
 
-                            <a href="{{ asset($permohonan->kk) }}"
+                            <a href="{{ $permohonan->kk }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -278,8 +278,8 @@
 
                             </a>
 
-                            <a href="{{ asset($permohonan->kk) }}"
-                               download
+                            <a href="{{ $permohonan->kk }}"
+                               target="_blank"
                                class="btn btn-download">
 
                                 Download
@@ -308,7 +308,7 @@
 
                         @if($permohonan->akte)
 
-                            <a href="{{ asset($permohonan->akte) }}"
+                            <a href="{{ $permohonan->akte }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -316,8 +316,8 @@
 
                             </a>
 
-                            <a href="{{ asset($permohonan->akte) }}"
-                               download
+                            <a href="{{ $permohonan->akte }}"
+                               target="_blank"
                                class="btn btn-download">
 
                                 Download
@@ -346,7 +346,7 @@
 
                         @if($permohonan->paspor_lama)
 
-                            <a href="{{ asset($permohonan->paspor_lama) }}"
+                            <a href="{{ $permohonan->paspor_lama }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -354,8 +354,8 @@
 
                             </a>
 
-                            <a href="{{ asset($permohonan->paspor_lama) }}"
-                               download
+                            <a href="{{ $permohonan->paspor_lama }}"
+                               target="_blank"
                                class="btn btn-download">
 
                                 Download
@@ -384,7 +384,7 @@
 
                         @if($permohonan->surat_sakit)
 
-                            <a href="{{ asset($permohonan->surat_sakit) }}"
+                            <a href="{{ $permohonan->surat_sakit }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -392,8 +392,8 @@
 
                             </a>
 
-                            <a href="{{ asset($permohonan->surat_sakit) }}"
-                               download
+                            <a href="{{ $permohonan->surat_sakit }}"
+                               target="_blank"
                                class="btn btn-download">
 
                                 Download
@@ -422,7 +422,7 @@
 
                         @if($permohonan->surat_dokter)
 
-                            <a href="{{ asset($permohonan->surat_dokter) }}"
+                            <a href="{{ $permohonan->surat_dokter }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -430,8 +430,8 @@
 
                             </a>
 
-                            <a href="{{ asset($permohonan->surat_dokter) }}"
-                               download
+                            <a href="{{ $permohonan->surat_dokter }}"
+                               target="_blank"
                                class="btn btn-download">
 
                                 Download
@@ -460,7 +460,7 @@
 
                         @if($permohonan->dokumen_lain)
 
-                            <a href="{{ asset($permohonan->dokumen_lain) }}"
+                            <a href="{{ $permohonan->dokumen_lain }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -468,8 +468,8 @@
 
                             </a>
 
-                            <a href="{{ asset($permohonan->dokumen_lain) }}"
-                               download
+                            <a href="{{ $permohonan->dokumen_lain }}"
+                               target="_blank"
                                class="btn btn-download">
 
                                 Download
