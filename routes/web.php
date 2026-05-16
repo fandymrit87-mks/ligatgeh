@@ -85,6 +85,26 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
+| VIEW FILE UPLOAD
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/file/{folder}/{filename}', function ($folder, $filename) {
+
+    $path = storage_path(
+        'app/public/' . $folder . '/' . $filename
+    );
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+
+})->middleware('auth');
+
+/*
+|--------------------------------------------------------------------------
 | AUTH ROUTES
 |--------------------------------------------------------------------------
 */

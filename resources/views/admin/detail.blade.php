@@ -22,7 +22,6 @@
             font-family:Arial, sans-serif;
             background:#eef3fb;
             padding:30px;
-            -webkit-font-smoothing:antialiased;
         }
 
         .container{
@@ -46,19 +45,16 @@
 
         .table-responsive{
             overflow-x:auto;
-            width:100%;
         }
 
         table{
             width:100%;
             border-collapse:collapse;
-            min-width:700px;
         }
 
         table td{
             padding:15px;
             border-bottom:1px solid #ddd;
-            vertical-align:middle;
         }
 
         .label{
@@ -75,14 +71,8 @@
             text-decoration:none;
             color:white;
             cursor:pointer;
-            margin-top:5px;
             margin-right:10px;
             font-size:14px;
-            transition:0.3s;
-        }
-
-        .btn-back{
-            background:#6b7280;
         }
 
         .btn-view{
@@ -93,6 +83,10 @@
             background:#16a34a;
         }
 
+        .btn-back{
+            background:#6b7280;
+        }
+
         .btn-approve{
             background:#2563eb;
         }
@@ -101,17 +95,12 @@
             background:#16a34a;
         }
 
-        .btn:hover{
-            opacity:0.9;
-        }
-
         .status{
             padding:6px 14px;
             border-radius:20px;
             color:white;
             font-size:12px;
             display:inline-block;
-            background:orange;
         }
 
         .action-area{
@@ -149,11 +138,6 @@
                 margin-bottom:8px;
             }
 
-            .status{
-                font-size:11px;
-                padding:5px 10px;
-            }
-
         }
 
     </style>
@@ -166,9 +150,7 @@
 
     <div class="card">
 
-        <h1>
-            Detail Permohonan
-        </h1>
+        <h1>Detail Permohonan</h1>
 
         <div class="table-responsive">
 
@@ -219,9 +201,7 @@
 
                 <tr>
 
-                    <td class="label">
-                        Status
-                    </td>
+                    <td class="label">Status</td>
 
                     <td>
 
@@ -229,9 +209,11 @@
 
                         style="
                         background:
-                        {{ $permohonan->status == 'Approve' ? '#2563eb' :
-                           ($permohonan->status == 'Selesai' ? '#16a34a' :
-                           '#f59e0b') }};
+                        {{ $permohonan->status == 'Approve'
+                            ? '#2563eb'
+                            : ($permohonan->status == 'Selesai'
+                            ? '#16a34a'
+                            : '#f59e0b') }};
                         ">
 
                             {{ $permohonan->status }}
@@ -242,20 +224,34 @@
 
                 </tr>
 
+                @php
+
+                    function fileUrl($file){
+
+                        if(!$file){
+                            return null;
+                        }
+
+                        $parts = explode('/', $file);
+
+                        return url('/file/' .
+                            $parts[0] . '/' . $parts[1]);
+
+                    }
+
+                @endphp
+
                 <!-- FILE KTP -->
 
                 <tr>
 
-                    <td class="label">
-                        File KTP
-                    </td>
+                    <td class="label">File KTP</td>
 
                     <td>
 
                         @if($permohonan->ktp)
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->ktp) }}"
+                            <a href="{{ fileUrl($permohonan->ktp) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -263,9 +259,7 @@
 
                             </a>
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->ktp) }}"
-                               download
+                            <a href="{{ fileUrl($permohonan->ktp) }}"
                                class="btn btn-download">
 
                                 Download
@@ -286,16 +280,13 @@
 
                 <tr>
 
-                    <td class="label">
-                        File KK
-                    </td>
+                    <td class="label">File KK</td>
 
                     <td>
 
                         @if($permohonan->kk)
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->kk) }}"
+                            <a href="{{ fileUrl($permohonan->kk) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -303,9 +294,7 @@
 
                             </a>
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->kk) }}"
-                               download
+                            <a href="{{ fileUrl($permohonan->kk) }}"
                                class="btn btn-download">
 
                                 Download
@@ -334,8 +323,7 @@
 
                         @if($permohonan->akte)
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->akte) }}"
+                            <a href="{{ fileUrl($permohonan->akte) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -343,9 +331,7 @@
 
                             </a>
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->akte) }}"
-                               download
+                            <a href="{{ fileUrl($permohonan->akte) }}"
                                class="btn btn-download">
 
                                 Download
@@ -366,16 +352,13 @@
 
                 <tr>
 
-                    <td class="label">
-                        File Paspor Lama
-                    </td>
+                    <td class="label">File Paspor Lama</td>
 
                     <td>
 
                         @if($permohonan->paspor_lama)
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->paspor_lama) }}"
+                            <a href="{{ fileUrl($permohonan->paspor_lama) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -383,9 +366,7 @@
 
                             </a>
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->paspor_lama) }}"
-                               download
+                            <a href="{{ fileUrl($permohonan->paspor_lama) }}"
                                class="btn btn-download">
 
                                 Download
@@ -406,16 +387,13 @@
 
                 <tr>
 
-                    <td class="label">
-                        File Surat Sakit
-                    </td>
+                    <td class="label">File Surat Sakit</td>
 
                     <td>
 
                         @if($permohonan->surat_sakit)
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->surat_sakit) }}"
+                            <a href="{{ fileUrl($permohonan->surat_sakit) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -423,9 +401,7 @@
 
                             </a>
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->surat_sakit) }}"
-                               download
+                            <a href="{{ fileUrl($permohonan->surat_sakit) }}"
                                class="btn btn-download">
 
                                 Download
@@ -446,16 +422,13 @@
 
                 <tr>
 
-                    <td class="label">
-                        File Surat Dokter
-                    </td>
+                    <td class="label">File Surat Dokter</td>
 
                     <td>
 
                         @if($permohonan->surat_dokter)
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->surat_dokter) }}"
+                            <a href="{{ fileUrl($permohonan->surat_dokter) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -463,9 +436,7 @@
 
                             </a>
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->surat_dokter) }}"
-                               download
+                            <a href="{{ fileUrl($permohonan->surat_dokter) }}"
                                class="btn btn-download">
 
                                 Download
@@ -486,16 +457,13 @@
 
                 <tr>
 
-                    <td class="label">
-                        Dokumen Lain
-                    </td>
+                    <td class="label">Dokumen Lain</td>
 
                     <td>
 
                         @if($permohonan->dokumen_lain)
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->dokumen_lain) }}"
+                            <a href="{{ fileUrl($permohonan->dokumen_lain) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -503,9 +471,7 @@
 
                             </a>
 
-                            <a href="{{ asset('storage/' .
-                                $permohonan->dokumen_lain) }}"
-                               download
+                            <a href="{{ fileUrl($permohonan->dokumen_lain) }}"
                                class="btn btn-download">
 
                                 Download
@@ -553,6 +519,8 @@
                 </button>
 
             </form>
+
+            <br>
 
             <a href="{{ route('dashboard') }}"
                class="btn btn-back">
