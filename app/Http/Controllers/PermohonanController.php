@@ -13,77 +13,88 @@ class PermohonanController extends Controller
         return view('permohonan.create');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | UPLOAD FILE KE PUBLIC/UPLOADS
+    |--------------------------------------------------------------------------
+    */
+
+    private function uploadFile($request, $field, $folder)
+    {
+
+        if($request->hasFile($field)){
+
+            $file = $request->file($field);
+
+            $filename =
+                time() . '_' .
+                $file->getClientOriginalName();
+
+            $destination =
+                public_path('uploads/' . $folder);
+
+            if(!file_exists($destination)){
+
+                mkdir($destination, 0777, true);
+            }
+
+            $file->move($destination, $filename);
+
+            return 'uploads/' .
+                   $folder . '/' .
+                   $filename;
+        }
+
+        return null;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SIMPAN PERMOHONAN
+    |--------------------------------------------------------------------------
+    */
 
     public function store(Request $request)
 {
 
-    $ktp = null;
+    $uploadPath = public_path('uploads');
 
-    if($request->hasFile('ktp')){
+    if(!file_exists($uploadPath)){
 
-        $ktp = $request->file('ktp')
-                       ->store('ktp', 'public');
+        mkdir($uploadPath, 0777, true);
+
     }
 
+    function saveFile($request, $field, $folder)
+    {
 
-    $kk = null;
+        if($request->hasFile($field)){
 
-    if($request->hasFile('kk')){
+            $file = $request->file($field);
 
-        $kk = $request->file('kk')
-                      ->store('kk', 'public');
+            $folderPath =
+                public_path('uploads/' . $folder);
+
+            if(!file_exists($folderPath)){
+
+                mkdir($folderPath, 0777, true);
+
+            }
+
+            $filename =
+                time() . '_' .
+                rand(1000,9999) . '_' .
+                $file->getClientOriginalName();
+
+            $file->move($folderPath, $filename);
+
+            return 'uploads/' .
+                   $folder . '/' .
+                   $filename;
+        }
+
+        return null;
     }
-
-
-    $akte = null;
-
-    if($request->hasFile('akte')){
-
-        $akte = $request->file('akte')
-                        ->store('akte', 'public');
-    }
-
-    $paspor_lama = null;
-
-    if($request->hasFile('paspor_lama')){
-
-        $paspor_lama = $request->file('paspor_lama')
-                            ->store('paspor_lama',
-                            'public');
-    }
-
-
-    $surat_sakit = null;
-
-    if($request->hasFile('surat_sakit')){
-
-        $surat_sakit = $request->file('surat_sakit')
-                            ->store('surat_sakit',
-                            'public');
-    }
-
-
-    $surat_dokter = null;
-
-    if($request->hasFile('surat_dokter')){
-
-        $surat_dokter = $request->file('surat_dokter')
-                                ->store('surat_dokter',
-                                'public');
-    }
-
-
-    $dokumen_lain = null;
-
-    if($request->hasFile('dokumen_lain')){
-
-        $dokumen_lain = $request->file('dokumen_lain')
-                                ->store('dokumen_lain',
-                                'public');
-    }
-
-
-
 
     $permohonan = Permohonan::create([
 
@@ -111,24 +122,46 @@ class PermohonanController extends Controller
         'jadwal_foto' =>
             $request->jadwal_foto,
 
-        'ktp' => $ktp,
+        'ktp' =>
+            saveFile($request, 'ktp', 'ktp'),
 
-        'kk' => $kk,
+        'kk' =>
+            saveFile($request, 'kk', 'kk'),
 
-        'akte' => $akte,
+        'akte' =>
+            saveFile($request, 'akte', 'akte'),
 
-        'paspor_lama' => $paspor_lama,
+        'paspor_lama' =>
+            saveFile(
+                $request,
+                'paspor_lama',
+                'paspor_lama'
+            ),
 
-        'surat_sakit' => $surat_sakit,
+        'surat_sakit' =>
+            saveFile(
+                $request,
+                'surat_sakit',
+                'surat_sakit'
+            ),
 
-        'surat_dokter' => $surat_dokter,
+        'surat_dokter' =>
+            saveFile(
+                $request,
+                'surat_dokter',
+                'surat_dokter'
+            ),
 
-        'dokumen_lain' => $dokumen_lain,
+        'dokumen_lain' =>
+            saveFile(
+                $request,
+                'dokumen_lain',
+                'dokumen_lain'
+            ),
 
         'status' => 'Pending'
 
     ]);
-
 
     return back()->with([
 
@@ -147,59 +180,69 @@ class PermohonanController extends Controller
 
 }
 
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD ADMIN
+    |--------------------------------------------------------------------------
+    */
 
-        public function dashboard(Request $request)
-{
+    public function dashboard(Request $request)
+    {
 
-    $query = Permohonan::query();
+        $query = Permohonan::query();
 
-    if($request->status){
+        if($request->status){
 
-        $query->where(
+            $query->where(
+                'status',
+                $request->status
+            );
+        }
+
+        $permohonans = $query
+            ->latest()
+            ->get();
+
+        $total = Permohonan::count();
+
+        $pending = Permohonan::where(
             'status',
-            $request->status
-        );
+            'Pending'
+        )->count();
 
+        $approve = Permohonan::where(
+            'status',
+            'Approve'
+        )->count();
+
+        $selesai = Permohonan::where(
+            'status',
+            'Selesai'
+        )->count();
+
+        return view(
+            'admin.dashboard',
+            compact(
+                'permohonans',
+                'total',
+                'pending',
+                'approve',
+                'selesai'
+            )
+        );
     }
 
-    $permohonans = $query
-        ->latest()
-        ->get();
-
-    $total = Permohonan::count();
-
-    $pending = Permohonan::where(
-        'status',
-        'Pending'
-    )->count();
-
-    $approve = Permohonan::where(
-        'status',
-        'Approve'
-    )->count();
-
-    $selesai = Permohonan::where(
-        'status',
-        'Selesai'
-    )->count();
-
-    return view(
-        'admin.dashboard',
-        compact(
-            'permohonans',
-            'total',
-            'pending',
-            'approve',
-            'selesai'
-        )
-    );
-
-}
+    /*
+    |--------------------------------------------------------------------------
+    | DETAIL PERMOHONAN
+    |--------------------------------------------------------------------------
+    */
 
     public function show($id)
     {
 
-        $permohonan = Permohonan::findOrFail($id);
+        $permohonan =
+            Permohonan::findOrFail($id);
 
         return view(
             'admin.detail',
@@ -207,20 +250,29 @@ class PermohonanController extends Controller
         );
     }
 
-    public function updateStatus(Request $request, $id)
-        {
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE STATUS
+    |--------------------------------------------------------------------------
+    */
 
-            $permohonan = Permohonan::findOrFail($id);
+    public function updateStatus(
+        Request $request,
+        $id
+    ){
 
-            $permohonan->status = $request->status;
+        $permohonan =
+            Permohonan::findOrFail($id);
 
-            $permohonan->save();
+        $permohonan->status =
+            $request->status;
 
-            return back()->with(
-                'success',
-                'Status berhasil diperbarui'
-            );
-        }
+        $permohonan->save();
+
+        return back()->with(
+            'success',
+            'Status berhasil diperbarui'
+        );
     }
 
-    
+}

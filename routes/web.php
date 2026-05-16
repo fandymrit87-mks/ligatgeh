@@ -12,7 +12,9 @@ use App\Http\Controllers\PermohonanController;
 */
 
 if (env('APP_ENV') === 'production') {
+
     URL::forceScheme('https');
+
 }
 
 /*
@@ -22,7 +24,9 @@ if (env('APP_ENV') === 'production') {
 */
 
 Route::get('/', function () {
+
     return view('welcome');
+
 });
 
 /*
@@ -85,18 +89,20 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| VIEW FILE UPLOAD
+| VIEW FILE UPLOAD PUBLIC/UPLOADS
 |--------------------------------------------------------------------------
 */
 
-Route::get('/file/{folder}/{filename}', function ($folder, $filename) {
+Route::get('/uploads/{folder}/{filename}', function ($folder, $filename) {
 
-    $path = storage_path(
-        'app/public/' . $folder . '/' . $filename
+    $path = public_path(
+        'uploads/' . $folder . '/' . $filename
     );
 
     if (!file_exists($path)) {
+
         abort(404);
+
     }
 
     return response()->file($path);
