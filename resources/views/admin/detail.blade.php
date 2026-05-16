@@ -142,12 +142,12 @@
             }
 
             .btn{
-            display:inline-block;
-            width:auto;
-            padding:8px 12px;
-            font-size:12px;
-            margin-bottom:8px;
-             }
+                display:inline-block;
+                width:auto;
+                padding:8px 12px;
+                font-size:12px;
+                margin-bottom:8px;
+            }
 
             .status{
                 font-size:11px;
@@ -305,6 +305,206 @@
 
                             <a href="{{ asset('storage/' .
                                 $permohonan->kk) }}"
+                               download
+                               class="btn btn-download">
+
+                                Download
+
+                            </a>
+
+                        @else
+
+                            Tidak ada file
+
+                        @endif
+
+                    </td>
+
+                </tr>
+
+                <!-- FILE AKTE -->
+
+                <tr>
+
+                    <td class="label">
+                        File Akte / Ijazah / Buku Nikah
+                    </td>
+
+                    <td>
+
+                        @if($permohonan->akte)
+
+                            <a href="{{ asset('storage/' .
+                                $permohonan->akte) }}"
+                               target="_blank"
+                               class="btn btn-view">
+
+                                Lihat
+
+                            </a>
+
+                            <a href="{{ asset('storage/' .
+                                $permohonan->akte) }}"
+                               download
+                               class="btn btn-download">
+
+                                Download
+
+                            </a>
+
+                        @else
+
+                            Tidak ada file
+
+                        @endif
+
+                    </td>
+
+                </tr>
+
+                <!-- FILE PASPOR LAMA -->
+
+                <tr>
+
+                    <td class="label">
+                        File Paspor Lama
+                    </td>
+
+                    <td>
+
+                        @if($permohonan->paspor_lama)
+
+                            <a href="{{ asset('storage/' .
+                                $permohonan->paspor_lama) }}"
+                               target="_blank"
+                               class="btn btn-view">
+
+                                Lihat
+
+                            </a>
+
+                            <a href="{{ asset('storage/' .
+                                $permohonan->paspor_lama) }}"
+                               download
+                               class="btn btn-download">
+
+                                Download
+
+                            </a>
+
+                        @else
+
+                            Tidak ada file
+
+                        @endif
+
+                    </td>
+
+                </tr>
+
+                <!-- FILE SURAT SAKIT -->
+
+                <tr>
+
+                    <td class="label">
+                        File Surat Sakit
+                    </td>
+
+                    <td>
+
+                        @if($permohonan->surat_sakit)
+
+                            <a href="{{ asset('storage/' .
+                                $permohonan->surat_sakit) }}"
+                               target="_blank"
+                               class="btn btn-view">
+
+                                Lihat
+
+                            </a>
+
+                            <a href="{{ asset('storage/' .
+                                $permohonan->surat_sakit) }}"
+                               download
+                               class="btn btn-download">
+
+                                Download
+
+                            </a>
+
+                        @else
+
+                            Tidak ada file
+
+                        @endif
+
+                    </td>
+
+                </tr>
+
+                <!-- FILE SURAT DOKTER -->
+
+                <tr>
+
+                    <td class="label">
+                        File Surat Dokter
+                    </td>
+
+                    <td>
+
+                        @if($permohonan->surat_dokter)
+
+                            <a href="{{ asset('storage/' .
+                                $permohonan->surat_dokter) }}"
+                               target="_blank"
+                               class="btn btn-view">
+
+                                Lihat
+
+                            </a>
+
+                            <a href="{{ asset('storage/' .
+                                $permohonan->surat_dokter) }}"
+                               download
+                               class="btn btn-download">
+
+                                Download
+
+                            </a>
+
+                        @else
+
+                            Tidak ada file
+
+                        @endif
+
+                    </td>
+
+                </tr>
+
+                <!-- FILE DOKUMEN LAIN -->
+
+                <tr>
+
+                    <td class="label">
+                        Dokumen Lain
+                    </td>
+
+                    <td>
+
+                        @if($permohonan->dokumen_lain)
+
+                            <a href="{{ asset('storage/' .
+                                $permohonan->dokumen_lain) }}"
+                               target="_blank"
+                               class="btn btn-view">
+
+                                Lihat
+
+                            </a>
+
+                            <a href="{{ asset('storage/' .
+                                $permohonan->dokumen_lain) }}"
                                download
                                class="btn btn-download">
 
