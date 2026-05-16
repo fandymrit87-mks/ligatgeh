@@ -224,23 +224,6 @@
 
                 </tr>
 
-                @php
-
-                    function fileUrl($file){
-
-                        if(!$file){
-                            return null;
-                        }
-
-                        $parts = explode('/', $file);
-
-                        return url('/file/' .
-                            $parts[0] . '/' . $parts[1]);
-
-                    }
-
-                @endphp
-
                 <!-- FILE KTP -->
 
                 <tr>
@@ -251,7 +234,7 @@
 
                         @if($permohonan->ktp)
 
-                            <a href="{{ fileUrl($permohonan->ktp) }}"
+                            <a href="{{ asset($permohonan->ktp) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -259,7 +242,8 @@
 
                             </a>
 
-                            <a href="{{ fileUrl($permohonan->ktp) }}"
+                            <a href="{{ asset($permohonan->ktp) }}"
+                               download
                                class="btn btn-download">
 
                                 Download
@@ -286,7 +270,7 @@
 
                         @if($permohonan->kk)
 
-                            <a href="{{ fileUrl($permohonan->kk) }}"
+                            <a href="{{ asset($permohonan->kk) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -294,7 +278,8 @@
 
                             </a>
 
-                            <a href="{{ fileUrl($permohonan->kk) }}"
+                            <a href="{{ asset($permohonan->kk) }}"
+                               download
                                class="btn btn-download">
 
                                 Download
@@ -323,7 +308,7 @@
 
                         @if($permohonan->akte)
 
-                            <a href="{{ fileUrl($permohonan->akte) }}"
+                            <a href="{{ asset($permohonan->akte) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -331,7 +316,8 @@
 
                             </a>
 
-                            <a href="{{ fileUrl($permohonan->akte) }}"
+                            <a href="{{ asset($permohonan->akte) }}"
+                               download
                                class="btn btn-download">
 
                                 Download
@@ -352,13 +338,15 @@
 
                 <tr>
 
-                    <td class="label">File Paspor Lama</td>
+                    <td class="label">
+                        File Paspor Lama
+                    </td>
 
                     <td>
 
                         @if($permohonan->paspor_lama)
 
-                            <a href="{{ fileUrl($permohonan->paspor_lama) }}"
+                            <a href="{{ asset($permohonan->paspor_lama) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -366,7 +354,8 @@
 
                             </a>
 
-                            <a href="{{ fileUrl($permohonan->paspor_lama) }}"
+                            <a href="{{ asset($permohonan->paspor_lama) }}"
+                               download
                                class="btn btn-download">
 
                                 Download
@@ -387,13 +376,15 @@
 
                 <tr>
 
-                    <td class="label">File Surat Sakit</td>
+                    <td class="label">
+                        File Surat Sakit
+                    </td>
 
                     <td>
 
                         @if($permohonan->surat_sakit)
 
-                            <a href="{{ fileUrl($permohonan->surat_sakit) }}"
+                            <a href="{{ asset($permohonan->surat_sakit) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -401,7 +392,8 @@
 
                             </a>
 
-                            <a href="{{ fileUrl($permohonan->surat_sakit) }}"
+                            <a href="{{ asset($permohonan->surat_sakit) }}"
+                               download
                                class="btn btn-download">
 
                                 Download
@@ -422,13 +414,15 @@
 
                 <tr>
 
-                    <td class="label">File Surat Dokter</td>
+                    <td class="label">
+                        File Surat Dokter
+                    </td>
 
                     <td>
 
                         @if($permohonan->surat_dokter)
 
-                            <a href="{{ fileUrl($permohonan->surat_dokter) }}"
+                            <a href="{{ asset($permohonan->surat_dokter) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -436,7 +430,8 @@
 
                             </a>
 
-                            <a href="{{ fileUrl($permohonan->surat_dokter) }}"
+                            <a href="{{ asset($permohonan->surat_dokter) }}"
+                               download
                                class="btn btn-download">
 
                                 Download
@@ -457,13 +452,15 @@
 
                 <tr>
 
-                    <td class="label">Dokumen Lain</td>
+                    <td class="label">
+                        Dokumen Lain
+                    </td>
 
                     <td>
 
                         @if($permohonan->dokumen_lain)
 
-                            <a href="{{ fileUrl($permohonan->dokumen_lain) }}"
+                            <a href="{{ asset($permohonan->dokumen_lain) }}"
                                target="_blank"
                                class="btn btn-view">
 
@@ -471,7 +468,8 @@
 
                             </a>
 
-                            <a href="{{ fileUrl($permohonan->dokumen_lain) }}"
+                            <a href="{{ asset($permohonan->dokumen_lain) }}"
+                               download
                                class="btn btn-download">
 
                                 Download
