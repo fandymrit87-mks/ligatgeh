@@ -1,17 +1,71 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PermohonanController;
+
+/*
+|--------------------------------------------------------------------------
+| FORCE HTTPS UNTUK PRODUCTION RAILWAY
+|--------------------------------------------------------------------------
+*/
+
+if (env('APP_ENV') === 'production') {
+    URL::forceScheme('https');
+}
+
+/*
+|--------------------------------------------------------------------------
+| HALAMAN WELCOME
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard',
-    [PermohonanController::class, 'dashboard']
-)->middleware(['auth'])
- ->name('dashboard');
+/*
+|--------------------------------------------------------------------------
+| HALAMAN PERMOHONAN
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/permohonan',
+    [PermohonanController::class, 'create']
+);
+
+Route::post('/permohonan',
+    [PermohonanController::class, 'store']
+)->name('permohonan.store');
+
+/*
+|--------------------------------------------------------------------------
+| DASHBOARD ADMIN
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/dashboard',
+        [PermohonanController::class, 'dashboard']
+    )->name('dashboard');
+
+    Route::get('/admin/permohonan/{id}',
+        [PermohonanController::class, 'show']
+    )->name('permohonan.show');
+
+    Route::post('/admin/permohonan/{id}/status',
+        [PermohonanController::class, 'updateStatus']
+    )->name('permohonan.status');
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| PROFILE USER
+|--------------------------------------------------------------------------
+*/
 
 Route::middleware('auth')->group(function () {
 
@@ -26,42 +80,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile',
         [ProfileController::class, 'destroy']
     )->name('profile.destroy');
+
 });
+
+/*
+|--------------------------------------------------------------------------
+| AUTH ROUTES
+|--------------------------------------------------------------------------
+*/
 
 require __DIR__.'/auth.php';
-
-
-Route::get('/permohonan',
-    [PermohonanController::class, 'create']
-);
-
-Route::post('/permohonan',
-    [PermohonanController::class, 'store']
-)->name('permohonan.store');
-
-Route::middleware(['auth'])->group(function(){
-
-    Route::get('/dashboard',
-        [PermohonanController::class, 'dashboard']
-    )->name('dashboard');
-
-   Route::middleware(['auth'])->group(function(){
-
-    Route::get('/dashboard',
-        [PermohonanController::class,
-        'dashboard']
-    )->name('dashboard');
-
-    Route::get('/admin/permohonan/{id}',
-        [PermohonanController::class,
-        'show']
-    )->name('permohonan.show');
-
-    Route::post('/admin/permohonan/{id}/status',
-        [PermohonanController::class,
-        'updateStatus']
-    )->name('permohonan.status');
-
-});
-
-});
